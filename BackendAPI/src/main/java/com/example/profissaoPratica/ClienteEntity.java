@@ -2,7 +2,6 @@ package com.example.profissaoPratica;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Controller;
 
 // CRIANDO UMA TABELA
 @Data
@@ -10,20 +9,29 @@ import org.springframework.stereotype.Controller;
 @AllArgsConstructor
 @Table(name = "profissoes")
 @Entity
-public class ProfissaoEntity {
+public class ClienteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Column(name = "NOME")
+    @Column(name = "Nome")
     private String nome;
 
-    @Column(name = "SALARIO")
-    private Double salario;
+    @Column(name = "CPF_CNPJ")
+    private String cpfCnpj;
 
-    @Column(name = "CARGA_HORARIA")
-    private Double cargaHoraria;
+    @Column(name = "Endereco")
+    private String endereco;
+
+    @Column(name = "Telefone")
+    private String telefone;
+
+    @Column(name = "Email")
+    private String email;
+
+    @Column(name = "Data_Cadastro")
+    private String dataCadastro;
 
 }
 
