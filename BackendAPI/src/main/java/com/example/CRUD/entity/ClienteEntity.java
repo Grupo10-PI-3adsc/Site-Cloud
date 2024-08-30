@@ -1,14 +1,13 @@
-package com.example.profissaoPratica;
+package com.example.CRUD.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 // CRIANDO UMA TABELA
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "profissoes")
 @Entity
+@Table(name = "profissoes")
+@Getter
+@Setter
 public class ClienteEntity {
 
     @Id
