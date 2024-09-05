@@ -1,14 +1,19 @@
 package com.example.CRUD.controller;
 
+import com.example.CRUD.dto.EnderecoDTO;
 import com.example.CRUD.entity.ClienteEntity;
+import com.example.CRUD.entity.EnderecoEntitiy;
 import com.example.CRUD.repository.ClienteRepository;
+import com.example.CRUD.repository.EnderecoRepository;
 import com.example.CRUD.service.ClienteService;
 import com.example.CRUD.dto.ClienteDTO;
-import org.apache.coyote.Response;
+import com.gtbr.ViaCepClient;
+import com.gtbr.domain.Cep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +25,8 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
     @Autowired
     private ClienteService clienteService;
-
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     @GetMapping
     public ResponseEntity<List<ClienteEntity>> listar() {
@@ -34,9 +40,9 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ClienteEntity> buscarPorIndice (@PathVariable int id) {
-        Optional<ClienteEntity> profissaoOpt = clienteRepository.findById(id);
-        if(profissaoOpt.isPresent()) {
-            return ResponseEntity.status(201).body(profissaoOpt.get());
+        Optional<ClienteEntity> clienteOpt = clienteRepository.findById(id);
+        if(clienteOpt.isPresent()) {
+            return ResponseEntity.status(201).body(clienteOpt.get());
         }
         return ResponseEntity.status(204).build();
     }
@@ -51,7 +57,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ResponseEntity<ClienteEntity> atualizar(@PathVariable Integer id, @RequestBody ClienteEntity clienteEntity){
         if(clienteRepository.existsById(id)) {
-            clienteEntity.setId(id);
+            clienteEntity.setId_cliente(id);
             return ResponseEntity.status(200).body(clienteEntity);
         }
 
@@ -59,12 +65,59 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deeltarCliente(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletarCliente(@PathVariable Integer id) {
         if(clienteRepository.existsById(id)) {
             clienteRepository.deleteById(id);
             return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(404).build();
+    }
+
+    @PostMapping("/endereco")
+    public ResponseEntity<ResponseEntity<EnderecoEntitiy>> buscaEndereco(@RequestParam String cep, Integer fkCliente) {
+        Cep viaCep = ViaCepClient.findCep(cep);
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO();
+        enderecoDTO.setBairro(viaCep.getBairro());
+        enderecoDTO.setCep(viaCep.getCep());
+        enderecoDTO.setComplemento(viaCep.getComplemento());
+        enderecoDTO.setDdd(viaCep.getDdd());
+        enderecoDTO.setGia(viaCep.getGia());
+        enderecoDTO.setIbge(viaCep.getIbge());
+        enderecoDTO.setLocalidade(viaCep.getLocalidade());
+        enderecoDTO.setLogradouro(viaCep.getLogradouro());
+        enderecoDTO.setSiafi(viaCep.getSiafi());
+        enderecoDTO.setUf(viaCep.getUf());
+        enderecoDTO.setFkCliente(fkCliente);
+
+        if (enderecoDTO.equals(null)) {
+            return ResponseEntity.status(404).build();
+        }
+
+        return ResponseEntity.status(201).body(clienteService.save(enderecoDTO));
+    }
+
+    @GetMapping("/endereco/ordenado")
+    public ResponseEntity<List<EnderecoEntitiy>> InsertSort() {
+
+        List<EnderecoEntitiy> vetor = enderecoRepository.findAll();
+
+        if (!vetor.isEmpty()) {
+            for (int i = 1; i < vetor.size(); i++) {
+                EnderecoEntitiy x = vetor.get(i);
+                int j = i - 1;
+
+                // Aqui a comparação deve ser feita dentro do loop
+                while (j >= 0 && vetor.get(j).getLocalidade().compareTo(x.getLocalidade()) > 0) {
+                    vetor.set(j + 1, vetor.get(j));
+                    j = j - 1;
+                }
+                vetor.set(j + 1, x);
+            }
+
+            return ResponseEntity.status(200).body(vetor);
+        }
+        return ResponseEntity.status(204).build();
     }
 
 

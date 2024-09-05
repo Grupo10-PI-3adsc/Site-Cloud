@@ -2,17 +2,21 @@ package com.example.CRUD.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // CRIANDO UMA TABELA
 @Entity
-@Table(name = "profissoes")
+@Table(name = "cliente")
 @Getter
 @Setter
 public class ClienteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id_cliente;
 
     @Column(name = "Nome")
     private String nome;
