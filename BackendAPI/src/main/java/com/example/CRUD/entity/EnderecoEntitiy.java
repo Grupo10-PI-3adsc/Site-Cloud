@@ -28,4 +28,5 @@ public class EnderecoEntitiy {
     private String ddd;
     private String siafi;
     private Integer fkCliente;
+
 }
