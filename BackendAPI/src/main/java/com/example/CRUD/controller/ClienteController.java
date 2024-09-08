@@ -2,7 +2,7 @@ package com.example.CRUD.controller;
 
 import com.example.CRUD.dto.EnderecoDTO;
 import com.example.CRUD.entity.ClienteEntity;
-import com.example.CRUD.entity.EnderecoEntitiy;
+import com.example.CRUD.entity.EnderecoEntity;
 import com.example.CRUD.repository.ClienteRepository;
 import com.example.CRUD.repository.EnderecoRepository;
 import com.example.CRUD.service.ClienteService;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +56,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ResponseEntity<ClienteEntity> atualizar(@PathVariable Integer id, @RequestBody ClienteEntity clienteEntity){
         if(clienteRepository.existsById(id)) {
-            clienteEntity.setId_cliente(id);
+            clienteEntity.setIdCliente(id);
             return ResponseEntity.status(200).body(clienteEntity);
         }
 
@@ -67,14 +66,61 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCliente(@PathVariable Integer id) {
         if(clienteRepository.existsById(id)) {
+            deletaEndereco(id);
             clienteRepository.deleteById(id);
             return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(404).build();
     }
 
-    @PostMapping("/endereco")
-    public ResponseEntity<ResponseEntity<EnderecoEntitiy>> buscaEndereco(@RequestParam String cep, Integer fkCliente) {
+//    @DeleteMapping("/enderecos/{fkCliente}")
+    public ResponseEntity<ResponseEntity<EnderecoEntity>> deletaEndereco(
+            @PathVariable Integer fkCliente
+    ) {
+        List<EnderecoEntity> enderecos = enderecoRepository.findAllByFkCliente(fkCliente);
+        if (!enderecos.isEmpty()){
+            for (int i = 0; i < enderecos.size(); i++) {
+                enderecoRepository.deleteById(enderecos.get(i).getId_endereco());
+                return ResponseEntity.status(204).build();
+            }
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+    @DeleteMapping("/enderecos/{fkCliente}")
+    public ResponseEntity<ResponseEntity<Void>> deletaEndereco(
+            @RequestParam String cep,
+            @PathVariable Integer fkCliente
+    ) {
+        Optional<EnderecoEntity> enderecos = enderecoRepository.findByFkClienteAndCep(fkCliente, cep);
+        if (enderecos.isPresent()){
+            enderecoRepository.deleteById(enderecos.get().getId_endereco());
+            return ResponseEntity.status(204).build();
+        }
+        return ResponseEntity.status(404).build();
+    }
+//
+    @PutMapping("/enderecos/{fkCliente}")
+    public ResponseEntity<EnderecoEntity> atualizarEndereco(
+            @PathVariable int fkCliente,
+            @RequestBody EnderecoEntity enderecoAtualziado
+
+    ) {
+        enderecoAtualziado.setFkCliente(fkCliente);
+        Optional<EnderecoEntity> enderecos = enderecoRepository.findByFkClienteAndCep(fkCliente, enderecoAtualziado.getCep());
+        enderecoAtualziado.setId_endereco(enderecos.get().getId_endereco());
+        if (enderecos.isPresent()){
+
+            return ResponseEntity.status(200).body(enderecoRepository.save(enderecoAtualziado));
+        }
+        return ResponseEntity.status(404).build();
+    }
+
+    @PostMapping("/enderecos/{fkCliente}")
+    public ResponseEntity<ResponseEntity<EnderecoEntity>> buscaEndereco(
+            @RequestParam String cep,
+            @PathVariable Integer fkCliente
+    ) {
         Cep viaCep = ViaCepClient.findCep(cep);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO();
@@ -97,14 +143,14 @@ public class ClienteController {
         return ResponseEntity.status(201).body(clienteService.save(enderecoDTO));
     }
 
-    @GetMapping("/endereco/ordenado")
-    public ResponseEntity<List<EnderecoEntitiy>> InsertSort() {
+    @GetMapping("/enderecos/ordenado")
+    public ResponseEntity<List<EnderecoEntity>> InsertSort() {
 
-        List<EnderecoEntitiy> vetor = enderecoRepository.findAll();
+        List<EnderecoEntity> vetor = enderecoRepository.findAll();
 
         if (!vetor.isEmpty()) {
             for (int i = 1; i < vetor.size(); i++) {
-                EnderecoEntitiy x = vetor.get(i);
+                EnderecoEntity x = vetor.get(i);
                 int j = i - 1;
 
                 // Aqui a comparação deve ser feita dentro do loop
@@ -115,6 +161,17 @@ public class ClienteController {
                 vetor.set(j + 1, x);
             }
 
+            return ResponseEntity.status(200).body(vetor);
+        }
+        return ResponseEntity.status(204).build();
+    }
+
+    @GetMapping("/enderecos")
+    public ResponseEntity<List<EnderecoEntity>> buscar() {
+
+        List<EnderecoEntity> vetor = enderecoRepository.buscaJoinEnderecoCliente();
+
+        if (!vetor.isEmpty()) {
             return ResponseEntity.status(200).body(vetor);
         }
         return ResponseEntity.status(204).build();
