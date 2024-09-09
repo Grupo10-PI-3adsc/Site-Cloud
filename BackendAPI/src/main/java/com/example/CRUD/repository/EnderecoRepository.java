@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Integer> {
     List<EnderecoEntity> findAllByFkCliente(Integer fkCliente);
     Optional<EnderecoEntity> findByFkClienteAndCep(Integer fkCliente, String cep);
-    @Query("SELECT e FROM EnderecoEntity e JOIN e.fkCliente c")
-    List<EnderecoEntity> buscaJoinEnderecoCliente();
+//    @Query("SELECT e FROM EnderecoEntity e JOIN e.fkCliente c")
+//    List<EnderecoEntity> buscaJoinEnderecoCliente();
 }

@@ -57,7 +57,7 @@ public class ClienteController {
     public ResponseEntity<ClienteEntity> atualizar(@PathVariable Integer id, @RequestBody ClienteEntity clienteEntity){
         if(clienteRepository.existsById(id)) {
             clienteEntity.setIdCliente(id);
-            return ResponseEntity.status(200).body(clienteEntity);
+            return ResponseEntity.status(200).body(clienteRepository.save(clienteEntity));
         }
 
         return ResponseEntity.status(404).build();
@@ -166,16 +166,16 @@ public class ClienteController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("/enderecos")
-    public ResponseEntity<List<EnderecoEntity>> buscar() {
-
-        List<EnderecoEntity> vetor = enderecoRepository.buscaJoinEnderecoCliente();
-
-        if (!vetor.isEmpty()) {
-            return ResponseEntity.status(200).body(vetor);
-        }
-        return ResponseEntity.status(204).build();
-    }
+//    @GetMapping("/enderecos")
+//    public ResponseEntity<List<EnderecoEntity>> buscar() {
+//
+//        List<EnderecoEntity> vetor = enderecoRepository.buscaJoinEnderecoCliente();
+//
+//        if (!vetor.isEmpty()) {
+//            return ResponseEntity.status(200).body(vetor);
+//        }
+//        return ResponseEntity.status(204).build();
+//    }
 
 
 
