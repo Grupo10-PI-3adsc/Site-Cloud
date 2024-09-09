@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "endereco")
-public class EnderecoEntitiy {
+public class EnderecoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,10 @@ public class EnderecoEntitiy {
     private String gia;
     private String ddd;
     private String siafi;
+//    @Column(insertable=false, updatable=false)
     private Integer fkCliente;
+    @ManyToOne
+    @JoinColumn(name = "cliente", referencedColumnName = "idCliente")
+    private ClienteEntity cliente; // Associação com ClienteEntity
 
 }
