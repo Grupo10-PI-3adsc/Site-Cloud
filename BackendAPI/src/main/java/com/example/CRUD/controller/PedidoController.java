@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/produtos")
 public class PedidoController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class PedidoController {
     @Autowired
     private MaoDeObraService maoDeObraService;
 
-    @GetMapping("/produtos")
+    @GetMapping()
     public ResponseEntity<List<ProdutoEntity>> listar() {
         List<ProdutoEntity> produtoOpt = pedidoProdutoRepository.findAll();
         if(produtoOpt.isEmpty()) {
@@ -39,7 +39,7 @@ public class PedidoController {
         return ResponseEntity.status(200).body(produtoOpt);
     }
 
-    @GetMapping("/produtos/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProdutoEntity> atualizar(@PathVariable int id) {
         Optional<ProdutoEntity> produto = pedidoProdutoRepository.findById(id);
 
@@ -50,13 +50,13 @@ public class PedidoController {
         return ResponseEntity.status(404).build();
     }
 
-    @PostMapping("/produtos")
+    @PostMapping()
     public ResponseEntity<ProdutoEntity> criar(@RequestBody ProdutoDTO produtoNovo) {
         produtoNovo.setId(null);
         return ResponseEntity.status(201).body(pedidoProdutoService.save(produtoNovo));
     }
 
-    @PutMapping("/produtos/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProdutoEntity> atualizar(@PathVariable Integer id, @RequestBody ProdutoEntity produto) {
         if(pedidoProdutoRepository.existsById(id)) {
             produto.setId(id);
@@ -65,7 +65,7 @@ public class PedidoController {
         return ResponseEntity.status(404).build();
     }
 
-    @DeleteMapping("/produtos/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         if(pedidoProdutoRepository.existsById(id)) {
             pedidoProdutoRepository.deleteById(id);
@@ -75,51 +75,75 @@ public class PedidoController {
     }
 
 
-
-
-
-    @GetMapping("/mao-de-obra")
-    public ResponseEntity<List<MaoDeObrEntity>> listarMaoDeObra() {
-        List<MaoDeObrEntity> maoDeObraOPT = maoDeObraRepository.findAll();
-
-        if(maoDeObraOPT.isEmpty()) {
+    @GetMapping("/pedidos")
+    public ResponseEntity<String> listarPedidos() {
+        List<ProdutoEntity> produtoOpt = pedidoProdutoRepository.findAll();
+        if(produtoOpt.isEmpty()) {
             return ResponseEntity.status(204).build();
         }
-        return ResponseEntity.status(200).body(maoDeObraOPT);
-    }
-
-    @GetMapping("/mao-de-obra/{id}")
-    public ResponseEntity<MaoDeObrEntity> atualizarMaoDeObra(@PathVariable int id) {
-        Optional<MaoDeObrEntity> maoDeObra = maoDeObraRepository.findById(id);
-
-        if(maoDeObra.isPresent()) {
-            return ResponseEntity.status(200).body(maoDeObra.get());
+        Double total = 0.0;
+        for (int i = 0; i < produtoOpt.size(); i++) {
+            total += produtoOpt.get(i).calcularPedido();
         }
-
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.status(200).body("O total de todos os pedidos de Produto: RS" + total);
     }
 
-    @PostMapping("/mao-de-obra")
-    public ResponseEntity<MaoDeObrEntity> criarMaoDeObra(@RequestBody MaoDeObraDTO maoDeObraNovo) {
-        maoDeObraNovo.setId(null);
-        return ResponseEntity.status(201).body(maoDeObraService.save(maoDeObraNovo));
-    }
 
-    @PutMapping("/mao-de-obra/{id}")
-    public ResponseEntity<MaoDeObrEntity> atualizar(@PathVariable Integer id, @RequestBody MaoDeObrEntity maoDeObra) {
-        if(maoDeObraRepository.existsById(id)) {
-            maoDeObra.setId(id);
-            return ResponseEntity.status(200).body(maoDeObraRepository.save(maoDeObra));
-        }
-        return ResponseEntity.status(404).build();
-    }
-
-    @DeleteMapping("/mao-de-obra/{id}")
-    public ResponseEntity<Void> deletarMaoDeObra(@PathVariable Integer id) {
-        if(maoDeObraRepository.existsById(id)) {
-            maoDeObraRepository.deleteById(id);
+    @GetMapping("/pedidos/{id}")
+    public ResponseEntity<String> listarPedidos(@PathVariable Integer id) {
+        Optional<ProdutoEntity> produtoOpt = pedidoProdutoRepository.findById(id);
+        if(produtoOpt.isEmpty()) {
             return ResponseEntity.status(204).build();
         }
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.status(200).body("O total de todos os pedidos de Produto: RS" + produtoOpt.get().calcularPedido());
     }
+
+
+
+//
+//
+//    @GetMapping("/mao-de-obra")
+//    public ResponseEntity<List<MaoDeObrEntity>> listarMaoDeObra() {
+//        List<MaoDeObrEntity> maoDeObraOPT = maoDeObraRepository.findAll();
+//
+//        if(maoDeObraOPT.isEmpty()) {
+//            return ResponseEntity.status(204).build();
+//        }
+//        return ResponseEntity.status(200).body(maoDeObraOPT);
+//    }
+//
+//    @GetMapping("/mao-de-obra/{id}")
+//    public ResponseEntity<MaoDeObrEntity> atualizarMaoDeObra(@PathVariable int id) {
+//        Optional<MaoDeObrEntity> maoDeObra = maoDeObraRepository.findById(id);
+//
+//        if(maoDeObra.isPresent()) {
+//            return ResponseEntity.status(200).body(maoDeObra.get());
+//        }
+//
+//        return ResponseEntity.status(404).build();
+//    }
+//
+//    @PostMapping("/mao-de-obra")
+//    public ResponseEntity<MaoDeObrEntity> criarMaoDeObra(@RequestBody MaoDeObraDTO maoDeObraNovo) {
+//        maoDeObraNovo.setId(null);
+//        return ResponseEntity.status(201).body(maoDeObraService.save(maoDeObraNovo));
+//    }
+//
+//    @PutMapping("/mao-de-obra/{id}")
+//    public ResponseEntity<MaoDeObrEntity> atualizar(@PathVariable Integer id, @RequestBody MaoDeObrEntity maoDeObra) {
+//        if(maoDeObraRepository.existsById(id)) {
+//            maoDeObra.setId(id);
+//            return ResponseEntity.status(200).body(maoDeObraRepository.save(maoDeObra));
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
+//
+//    @DeleteMapping("/mao-de-obra/{id}")
+//    public ResponseEntity<Void> deletarMaoDeObra(@PathVariable Integer id) {
+//        if(maoDeObraRepository.existsById(id)) {
+//            maoDeObraRepository.deleteById(id);
+//            return ResponseEntity.status(204).build();
+//        }
+//        return ResponseEntity.status(404).build();
+//    }
 }
