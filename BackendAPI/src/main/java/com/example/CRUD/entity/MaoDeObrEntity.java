@@ -26,6 +26,12 @@ public class MaoDeObrEntity implements Pedido {
     private LocalDate dataInicio;
     private Integer fkCliente;
 
+    @Override
+    public Double calcularPreco() {
+        return custoProduto + precoMaoDeObra;
+    }
+
+
 //    private Integer id;
 //    private String nome;
 //    private String descricao;
@@ -36,10 +42,7 @@ public class MaoDeObrEntity implements Pedido {
 //    private String localizacao;
 //    private LocalDate dataAtualizcao;
 
-    @Override
-    public Double calcularPedido() {
-        return precoMaoDeObra + custoProduto;
-    }
+
 }
 
 //package com.example.CRUD.entity;

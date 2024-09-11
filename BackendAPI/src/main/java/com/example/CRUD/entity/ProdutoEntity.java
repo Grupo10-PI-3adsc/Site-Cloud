@@ -24,10 +24,10 @@ public class ProdutoEntity implements Pedido {
     private String fornecedor;
     private String localizacao;
     private LocalDate dataAtualizcao;
-    private Integer fkCliente;
+    private String fkCliente;
 
     @Override
-    public Double calcularPedido() {
-        return qtdPedido * precoUnitario;
+    public Double calcularPreco() {
+        return precoUnitario * qtdPedido;
     }
 }
