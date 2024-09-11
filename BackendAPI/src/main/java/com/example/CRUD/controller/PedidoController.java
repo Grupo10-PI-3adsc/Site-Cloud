@@ -74,33 +74,33 @@ public class PedidoController {
         return ResponseEntity.status(404).build();
     }
 
-
     @GetMapping("/pedidos")
-    public ResponseEntity<String> listarPedidos() {
-        List<ProdutoEntity> produtoOpt = pedidoProdutoRepository.findAll();
-        if(produtoOpt.isEmpty()) {
-            return ResponseEntity.status(204).build();
-        }
-        Double total = 0.0;
-        for (int i = 0; i < produtoOpt.size(); i++) {
-            total += produtoOpt.get(i).calcularPedido();
-        }
-        return ResponseEntity.status(200).body("O total de todos os pedidos de Produto: RS" + total);
-    }
+    public ResponseEntity<String> pedidoProduto() {
 
+        List<ProdutoEntity> maoDeObraOPT = pedidoProdutoRepository.findAll();
+
+        Double total = 0.0;
+        if (!maoDeObraOPT.isEmpty()) {
+            for (int i = 0; i < maoDeObraOPT.size(); i++) {
+                total += maoDeObraOPT.get(i).calcularPreco();
+            }
+            return ResponseEntity.status(200).body("Preço total de todos os pedidos de Mão de Obra: R$" + total);
+        }
+        return ResponseEntity.status(204).build();
+    }
 
     @GetMapping("/pedidos/{id}")
-    public ResponseEntity<String> listarPedidos(@PathVariable Integer id) {
-        Optional<ProdutoEntity> produtoOpt = pedidoProdutoRepository.findById(id);
-        if(produtoOpt.isEmpty()) {
-            return ResponseEntity.status(204).build();
+    public ResponseEntity<String> pedidoIdProduto(@PathVariable Integer id) {
+
+        Optional<ProdutoEntity> maoDeObraOPT = pedidoProdutoRepository.findById(id);
+
+        if (maoDeObraOPT.isPresent()) {
+            return ResponseEntity.status(200).body("Preço total de todos os pedidos de Produto: R$" + maoDeObraOPT.get().calcularPreco());
         }
-        return ResponseEntity.status(200).body("O total de todos os pedidos de Produto: RS" + produtoOpt.get().calcularPedido());
+        return ResponseEntity.status(204).build();
     }
 
 
-
-//
 //
 //    @GetMapping("/mao-de-obra")
 //    public ResponseEntity<List<MaoDeObrEntity>> listarMaoDeObra() {

@@ -32,7 +32,6 @@ public class MaoDeObraService {
         produto.setHoraEstimada(maoDeObraDTO.getHoraEstimada());
         produto.setDataInicio(maoDeObraDTO.getDataInicio());
         produto.setFkCliente(maoDeObraDTO.getFkCliente());
-
 //        produto.setQtdEstoque(maoDeObraDTO.getQtdEstoque());
 //        produto.setPrecoUnitario(maoDeObraDTO.getPrecoUnitario());
 //        produto.setFornecedor(maoDeObraDTO.getFornecedor());

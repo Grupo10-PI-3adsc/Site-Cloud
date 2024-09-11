@@ -1,41 +1,28 @@
-package com.example.CRUD.entity;
+package com.example.BackendAPI;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.http.ResponseEntity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // CRIANDO UMA TABELA
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "profissoes")
 @Entity
-@Table(name = "cliente")
-@Getter
-@Setter
-public class ClienteEntity {
+public class ProfissaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
+    private Integer Id;
 
-    @Column(name = "Nome")
+    @Column(name = "NOME")
     private String nome;
 
-    @Column(name = "CPF_CNPJ")
-    private String cpfCnpj;
+    @Column(name = "SALARIO")
+    private Double salario;
 
-    @Column(name = "Endereco")
-    private String endereco;
-
-    @Column(name = "Telefone")
-    private String telefone;
-
-    @Column(name = "Email")
-    private String email;
-
-    @Column(name = "Data_Cadastro")
-    private String dataCadastro;
-
+    @Column(name = "CARGA_HORARIA")
+    private Double cargaHoraria;
 
 }
 
