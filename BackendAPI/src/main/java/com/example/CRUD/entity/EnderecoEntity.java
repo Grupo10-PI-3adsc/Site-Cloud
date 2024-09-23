@@ -1,5 +1,6 @@
 package com.example.CRUD.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,9 +28,11 @@ public class EnderecoEntity {
     private String gia;
     private String ddd;
     private String siafi;
+    private Boolean isActive;
 //    @Column(insertable=false, updatable=false)
     private Integer fkCliente;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "cliente", referencedColumnName = "idCliente")
     private ClienteEntity cliente; // Associação com ClienteEntity
 

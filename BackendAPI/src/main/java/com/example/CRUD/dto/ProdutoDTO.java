@@ -20,5 +20,5 @@ public class ProdutoDTO {
     private String fornecedor;
     private String localizacao;
     private LocalDate dataAtualizcao;
-    private String fkCliente;
+    private Integer fkCliente;
 }

@@ -21,5 +21,4 @@ public class MaoDeObraDTO {
     private LocalDate horaEstimada;
     private LocalDate dataInicio;
     private Integer fkCliente;
-
 }
