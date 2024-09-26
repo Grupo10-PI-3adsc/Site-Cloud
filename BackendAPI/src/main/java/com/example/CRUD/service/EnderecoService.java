@@ -18,10 +18,10 @@ public class EnderecoService {
     private EnderecoRepository enderecoRepository;
 
     public EnderecoEntity save(EnderecoEntity novoEndereco) {
-        if (enderecoRepository.existsById(novoEndereco.getId_endereco())) {
+        if (enderecoRepository.existsById(novoEndereco.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Endereço já criado");
         }
-        novoEndereco.setId_endereco(null);
+        novoEndereco.setId(null);
         return enderecoRepository.save(novoEndereco);
     }
 

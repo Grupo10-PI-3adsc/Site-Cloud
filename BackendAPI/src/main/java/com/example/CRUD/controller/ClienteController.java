@@ -1,14 +1,8 @@
 package com.example.CRUD.controller;
-
-import com.example.CRUD.dto.EnderecoDTO;
 import com.example.CRUD.entity.ClienteEntity;
-import com.example.CRUD.entity.EnderecoEntity;
 import com.example.CRUD.repository.ClienteRepository;
-import com.example.CRUD.repository.EnderecoRepository;
 import com.example.CRUD.service.ClienteService;
-import com.example.CRUD.dto.ClienteDTO;
-import com.gtbr.ViaCepClient;
-import com.gtbr.domain.Cep;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +18,6 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
     @Autowired
     private ClienteService clienteService;
-    @Autowired
-    private EnderecoRepository enderecoRepository;
 
     @GetMapping
     public ResponseEntity<List<ClienteEntity>> listar() {

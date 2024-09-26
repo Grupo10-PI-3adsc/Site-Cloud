@@ -20,9 +20,6 @@ public class ProdutoService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
-    @Autowired
-    private ProdutoService produtoService;
-
 
     public ProdutoEntity save(ProdutoEntity produto) {
         if(produtoRepository.existsById(produto.getId())) {

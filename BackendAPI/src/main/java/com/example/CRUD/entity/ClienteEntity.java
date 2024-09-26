@@ -33,11 +33,15 @@ public class ClienteEntity {
     @Column(name = "Email")
     private String email;
 
+    @Column(name = "Senha")
+    private String senha;
+
     @Column(name = "Ativo")
     private Boolean isActive;
 
     @Column(name = "Data_Cadastro")
     private String dataCadastro;
+
 
 }
 

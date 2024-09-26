@@ -37,7 +37,7 @@ public class MaoDeObraController {
         return ResponseEntity.ok().body(maoDeObraService.pesquisarPorCliente(id));
     }
 
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MaoDeObrEntity> atualizarMaoDeObra(@RequestParam MaoDeObrEntity maoDeObrEntity, @PathVariable int id) {
         return ResponseEntity.ok(maoDeObraService.atualizarServico(maoDeObrEntity, id));
     }
