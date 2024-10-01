@@ -36,6 +36,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteEntity> criar(@RequestBody ClienteEntity clienteNovo){
+
         return ResponseEntity.ok(clienteService.save(clienteNovo));
     }
 

@@ -15,13 +15,15 @@ IF OBJECT_ID('dbo.Clientes', 'U') IS NOT NULL DROP TABLE Clientes;
 IF OBJECT_ID('Clientes', 'U') IS NULL
 BEGIN
     CREATE TABLE Clientes (
-        ID_Cliente INT PRIMARY KEY,
+        ID_Cliente INT PRIMARY KEY IDENTITY(1,1), -- IDENTITY para geração automática de IDs
         Nome NVARCHAR(255) NOT NULL,
         CPF_CNPJ NVARCHAR(20) NOT NULL,
         Endereco NVARCHAR(255),
         Telefone NVARCHAR(20),
         Email NVARCHAR(255),
-        Data_Cadastro DATE
+        Senha NVARCHAR(255), -- Nova coluna Senha
+        Ativo BIT,           -- Nova coluna Ativo (BIT para valores booleanos em SQL)
+        Data_Cadastro NVARCHAR(255) -- Alinhando com a definição de string para dataCadastro
     );
 END
 GO
