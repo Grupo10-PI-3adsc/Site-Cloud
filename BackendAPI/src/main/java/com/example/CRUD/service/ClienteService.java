@@ -3,6 +3,7 @@ import com.example.CRUD.entity.ClienteEntity;
 import com.example.CRUD.entity.EnderecoEntity;
 import com.example.CRUD.repository.ClienteRepository;
 import com.example.CRUD.repository.EnderecoRepository;
+//import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Key;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,6 @@ public class ClienteService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Cliente já cadastrado!");
         }
         cliente.setIdCliente(null);
-        System.out.println(cliente);
         return clienteRepository.save(cliente);
     }
 
@@ -72,5 +73,10 @@ public class ClienteService {
         throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente não encontrado ou Endereço");
 
     }
+//
+//    public ClienteEntity login(String email, String senha) {
+////        Key key = Keys.secretKeyFor();
+//    }
+
 
 }
