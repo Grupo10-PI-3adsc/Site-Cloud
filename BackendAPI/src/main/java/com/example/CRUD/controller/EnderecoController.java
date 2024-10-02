@@ -26,29 +26,9 @@ public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
-    @PostMapping("/{fkCliente}")
-    public ResponseEntity<EnderecoEntity> cadastrarEndereco(
-            @RequestParam String cep,
-            @PathVariable Integer fkCliente
-    ) {
-        Cep viaCep = ViaCepClient.findCep(cep);
-
-        EnderecoEntity enderecoEntity = new EnderecoEntity();
-        enderecoEntity.setBairro(viaCep.getBairro());
-        enderecoEntity.setCep(viaCep.getCep());
-        enderecoEntity.setComplemento(viaCep.getComplemento());
-        enderecoEntity.setDdd(viaCep.getDdd());
-        enderecoEntity.setGia(viaCep.getGia());
-        enderecoEntity.setIbge(viaCep.getIbge());
-        enderecoEntity.setLocalidade(viaCep.getLocalidade());
-        enderecoEntity.setLogradouro(viaCep.getLogradouro());
-        enderecoEntity.setSiafi(viaCep.getSiafi());
-        enderecoEntity.setUf(viaCep.getUf());
-        enderecoEntity.setFkCliente(fkCliente);
-        enderecoEntity.setIsActive(true);
-        enderecoEntity.setId(1);
-
-        return ResponseEntity.ok().body(enderecoService.save(enderecoEntity, fkCliente));
+    @PostMapping()
+    public ResponseEntity<EnderecoEntity> cadastrarEndereco(@RequestBody EnderecoEntity enderecoEntity) {
+        return ResponseEntity.ok().body(enderecoService.save(enderecoEntity));
     }
 
     @GetMapping()

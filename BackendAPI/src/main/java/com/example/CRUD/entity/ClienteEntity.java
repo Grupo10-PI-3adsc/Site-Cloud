@@ -9,7 +9,7 @@ import java.util.List;
 
 // CRIANDO UMA TABELA
 @Entity
-@Table(name = "Clientes")
+@Table(name = "cliente")
 @Getter
 @Setter
 public class ClienteEntity {
