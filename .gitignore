@@ -1,81 +1,33 @@
-# Node.js
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-package-lock.json
-yarn.lock
-
-# React
-build/
-.cache/
-public/static/
-*.env.local
-*.env.development.local
-*.env.test.local
-*.env.production.local
-
-# Java & Spring
+HELP.md
 target/
-*.class
-*.jar
-*.war
-*.ear
-*.log
-*.log.*
-*.classpath
-*.project
-*.settings/
-*.metadata/
-.spring-boot-devtools/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# IntelliJ IDEA
-.idea/
-*.iml
+### IntelliJ IDEA ###
+.idea
 *.iws
-out/
-*.class
-*.jar
-*.war
-*.ear
+*.iml
+*.ipr
 
-# VS Code
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
 .vscode/
-.history/
-
-# Tailwind
-*.css.map
-*.js.map
-
-
-# MySQL
-*.sql
-*.sql.gz
-*.dump
-
-# Logs
-*.log
-
-# Temporary files
-*.tmp
-*.swp
-*.swo
-*.swn
-*.bak
-*.orig
-
-
-# Yarn
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/sdks
-!.yarn/versions
-!.yarn/metadata
-!.yarn/constraints
-
-# Docker
-Dockerfile
-docker-compose.yml
-.docker/
