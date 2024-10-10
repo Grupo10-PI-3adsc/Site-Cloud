@@ -1,9 +1,8 @@
 package com.example.CRUD.service;
-import com.example.CRUD.entity.ClienteEntity;
 import com.example.CRUD.entity.EnderecoEntity;
-import com.example.CRUD.repository.ClienteRepository;
+import com.example.CRUD.entity.FuncionarioEntity;
+import com.example.CRUD.repository.FuncionarioRepository;
 import com.example.CRUD.repository.EnderecoRepository;
-//import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +11,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.security.Key;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClienteService {
+public class FuncionarioService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private FuncionarioRepository funcionarioRepository;
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public ClienteEntity save(ClienteEntity cliente) {
-        if(clienteRepository.existsById(cliente.getIdCliente())) {
+    public FuncionarioEntity save(FuncionarioEntity cliente) {
+        if(funcionarioRepository.existsById(cliente.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Cliente já cadastrado!");
         }
-        cliente.setIdCliente(null);
-        return clienteRepository.save(cliente);
+        cliente.setId(null);
+        System.out.println(cliente);
+        return funcionarioRepository.save(cliente);
     }
 
-    public List<ClienteEntity> listarCliente() {
-        return clienteRepository.findAll();
+    public List<FuncionarioEntity> listarCliente() {
+        return funcionarioRepository.findAll();
     }
 
-    public ClienteEntity clientePorId(int id) {
-        Optional<ClienteEntity> clienteEntityOptional = clienteRepository.findById(id);
+    public FuncionarioEntity clientePorId(int id) {
+        Optional<FuncionarioEntity> clienteEntityOptional = funcionarioRepository.findById(id);
 
         if(clienteEntityOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -46,37 +45,32 @@ public class ClienteService {
     }
 
 
-    public List<ClienteEntity> clientePorNome(String nome) {
-        return clienteRepository.findByNomeContainingIgnoreCase(nome);
+    public List<FuncionarioEntity> clientePorNome(String nome) {
+        return funcionarioRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public ClienteEntity atualizarCliente(ClienteEntity cliente, int id) {
-        if (!clienteRepository.existsById(id)) {
+    public FuncionarioEntity atualizarCliente(FuncionarioEntity cliente, int id) {
+        if (!funcionarioRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente não encontrado");
         }
-        return clienteRepository.save(cliente);
+        return funcionarioRepository.save(cliente);
     }
 
 
-    public ClienteEntity inativarCliente(int id) {
+    public FuncionarioEntity inativarCliente(int id) {
         Boolean ativo = false;
-        Optional<ClienteEntity> cliente = clienteRepository.findById(id);
+        Optional<FuncionarioEntity> cliente = funcionarioRepository.findById(id);
         Optional<EnderecoEntity> endereco = enderecoRepository.findByFkCliente(id);
 
         if (cliente.isPresent()) {
             endereco.ifPresent(enderecoEntity -> enderecoEntity.setIsActive(ativo));
             cliente.get().setIsActive(ativo);
-            clienteRepository.save(cliente.get());
+            funcionarioRepository.save(cliente.get());
             endereco.get().setIsActive(ativo);
             return cliente.get();
         }
         throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente não encontrado ou Endereço");
 
     }
-//
-//    public ClienteEntity login(String email, String senha) {
-////        Key key = Keys.secretKeyFor();
-//    }
-
 
 }

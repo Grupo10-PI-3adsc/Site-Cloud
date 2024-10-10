@@ -3,20 +3,23 @@ package com.example.CRUD.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 // CRIANDO UMA TABELA
 @Entity
-@Table(name = "cliente")
+@Table(name = "Clientes")
 @Getter
 @Setter
-public class ClienteEntity {
+public class FuncionarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
+    private Integer Id;
 
     @Column(name = "Nome")
     private String nome;
@@ -42,7 +45,44 @@ public class ClienteEntity {
     @Column(name = "Data_Cadastro")
     private String dataCadastro;
 
+    @Column(name = "Funcao")
+    private String role;
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
 }
 
 

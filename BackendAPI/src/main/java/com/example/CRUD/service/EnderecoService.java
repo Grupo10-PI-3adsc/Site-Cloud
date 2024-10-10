@@ -17,10 +17,11 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public EnderecoEntity save(EnderecoEntity novoEndereco) {
-        if (enderecoRepository.existsById(novoEndereco.getId())) {
+    public EnderecoEntity save(EnderecoEntity novoEndereco, Integer fkCliente) {
+        if (enderecoRepository.existsById(novoEndereco.getId()) ) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Endereço já criado");
         }
+        novoEndereco.setFkCliente(fkCliente);
         novoEndereco.setId(null);
         return enderecoRepository.save(novoEndereco);
     }

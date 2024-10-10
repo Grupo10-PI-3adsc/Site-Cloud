@@ -1,5 +1,6 @@
 package com.example.CRUD.dto;
 
+import com.example.CRUD.security.controller.ClienteControllerSecurity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class ClienteDTO {
     private String telefone;
     private String email;
     private String dataCadastro;
+    private String funcao;
 
 }
