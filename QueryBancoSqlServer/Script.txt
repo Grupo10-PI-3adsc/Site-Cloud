@@ -8,6 +8,7 @@ IF OBJECT_ID('dbo.Agendamentos', 'U') IS NOT NULL DROP TABLE Agendamentos;
 IF OBJECT_ID('dbo.Funcionarios', 'U') IS NOT NULL DROP TABLE Funcionarios;
 IF OBJECT_ID('dbo.Servicos', 'U') IS NOT NULL DROP TABLE Servicos;
 IF OBJECT_ID('dbo.Veiculos', 'U') IS NOT NULL DROP TABLE Veiculos;
+IF OBJECT_ID('dbo.maoDeobra', 'U') IS NOT NULL DROP TABLE dbo.maoDeobra;
 IF OBJECT_ID('dbo.Clientes', 'U') IS NOT NULL DROP TABLE Clientes;
 
 
@@ -15,13 +16,15 @@ IF OBJECT_ID('dbo.Clientes', 'U') IS NOT NULL DROP TABLE Clientes;
 IF OBJECT_ID('Clientes', 'U') IS NULL
 BEGIN
     CREATE TABLE Clientes (
-        ID_Cliente INT PRIMARY KEY,
+        Id INT PRIMARY KEY,
         Nome NVARCHAR(255) NOT NULL,
-        CPF_CNPJ NVARCHAR(20) NOT NULL,
-        Endereco NVARCHAR(255),
+        CPF_CNPJ VARCHAR(20) NOT NULL,
+        Endereco VARCHAR(255),
         Telefone NVARCHAR(20),
         Email NVARCHAR(255),
         Data_Cadastro DATE
+        Ativo Bit,
+        Funcao varchar(255)
     );
 END
 GO
@@ -51,6 +54,22 @@ BEGIN
         Descricao NVARCHAR(255),
         Categoria NVARCHAR(50),
         Preco DECIMAL(10, 2)
+    );
+END
+GO
+
+IF OBJECT_ID('dbo.maoDeobra', 'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.maoDeobra (
+        id INT IDENTITY(1,1) PRIMARY KEY,           -- Coluna com auto-incremento
+        nome NVARCHAR(255) NULL,                    -- Nome do produto/serviço
+        descricao NVARCHAR(255) NULL,               -- Descrição do serviço/produto
+        Categoria NVARCHAR(50) NULL,                -- Categoria do serviço/produto
+        qtd_estoque INT NULL,                       -- Quantidade em estoque
+        preco_unitario DECIMAL(10, 2) NULL,         -- Preço unitário
+        fornecedor NVARCHAR(255) NULL,              -- Fornecedor do serviço/produto
+        localizacao NVARCHAR(50) NULL,              -- Localização no estoque
+        data_atualizcao DATE NULL                   -- Data da última atualização
     );
 END
 GO
