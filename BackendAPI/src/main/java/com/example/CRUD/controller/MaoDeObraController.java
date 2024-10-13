@@ -28,22 +28,22 @@ public class MaoDeObraController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MaoDeObrEntity> buscarPorPorId(@PathVariable int id) {
+    public ResponseEntity<MaoDeObrEntity> buscarPorPorId(@PathVariable Integer id) {
         return ResponseEntity.ok().body(maoDeObraService.servicoPorId(id));
     }
 
     @GetMapping("/servico-por-cliente/{id}")
-    public ResponseEntity<List<MaoDeObrEntity>> buscarPorCliente(@PathVariable int id) {
+    public ResponseEntity<List<MaoDeObrEntity>> buscarPorCliente(@PathVariable Integer id) {
         return ResponseEntity.ok().body(maoDeObraService.pesquisarPorCliente(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MaoDeObrEntity> atualizarMaoDeObra(@RequestParam MaoDeObrEntity maoDeObrEntity, @PathVariable int id) {
+    public ResponseEntity<MaoDeObrEntity> atualizarMaoDeObra(@RequestParam MaoDeObrEntity maoDeObrEntity, @PathVariable Integer id) {
         return ResponseEntity.ok(maoDeObraService.atualizarServico(maoDeObrEntity, id));
     }
 
     @PostMapping()
-    public ResponseEntity<MaoDeObrEntity> criarMaoDeObra(@RequestBody MaoDeObrEntity maoDeObraNovo, @PathVariable int id) {
+    public ResponseEntity<MaoDeObrEntity> criarMaoDeObra(@RequestBody MaoDeObrEntity maoDeObraNovo, @PathVariable Integer id) {
         return ResponseEntity.ok(maoDeObraService.adicionarServico(maoDeObraNovo, id));
     }
 

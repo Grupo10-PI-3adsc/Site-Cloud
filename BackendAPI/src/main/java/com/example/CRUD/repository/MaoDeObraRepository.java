@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MaoDeObraRepository extends JpaRepository<MaoDeObrEntity, Integer> {
 
-    List<MaoDeObrEntity> findAllByFkCliente(int id);
+    List<MaoDeObrEntity> findAllByFkUser(Integer id);
 
-    Optional<MaoDeObrEntity> findByFkCliente(int id);
+    Optional<MaoDeObrEntity> findByFkUser(Integer id);
 }

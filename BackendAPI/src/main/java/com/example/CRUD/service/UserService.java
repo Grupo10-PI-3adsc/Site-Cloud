@@ -1,13 +1,10 @@
 package com.example.CRUD.service;
 import com.example.CRUD.entity.EnderecoEntity;
-import com.example.CRUD.entity.FuncionarioEntity;
-import com.example.CRUD.repository.FuncionarioRepository;
+import com.example.CRUD.entity.UserEntity;
+import com.example.CRUD.repository.UserRepository;
 import com.example.CRUD.repository.EnderecoRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,61 +12,61 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FuncionarioService {
+public class UserService {
 
     @Autowired
-    private FuncionarioRepository funcionarioRepository;
+    private UserRepository userRepository;
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public FuncionarioEntity save(FuncionarioEntity cliente) {
-        if(funcionarioRepository.existsById(cliente.getId())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cliente já cadastrado!");
+    public UserEntity save(UserEntity user) {
+        if(userRepository.existsById(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuário já cadastrado!");
         }
-        cliente.setId(null);
-        System.out.println(cliente);
-        return funcionarioRepository.save(cliente);
+        user.setId(1);
+        System.out.println(user);
+        return userRepository.save(user);
     }
 
-    public List<FuncionarioEntity> listarCliente() {
-        return funcionarioRepository.findAll();
+    public List<UserEntity> listarCliente() {
+        return userRepository.findAll();
     }
 
-    public FuncionarioEntity clientePorId(int id) {
-        Optional<FuncionarioEntity> clienteEntityOptional = funcionarioRepository.findById(id);
+    public UserEntity userPorId(int id) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(id);
 
-        if(clienteEntityOptional.isEmpty()) {
+        if(userEntityOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return clienteEntityOptional.get();
+        return userEntityOptional.get();
     }
 
 
-    public List<FuncionarioEntity> clientePorNome(String nome) {
-        return funcionarioRepository.findByNomeContainingIgnoreCase(nome);
+    public List<UserEntity> userPorNome(String nome) {
+        return userRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public FuncionarioEntity atualizarCliente(FuncionarioEntity cliente, int id) {
-        if (!funcionarioRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente não encontrado");
+    public UserEntity atualizarCliente(UserEntity user, int id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Usuário não encontrado");
         }
-        return funcionarioRepository.save(cliente);
+        return userRepository.save(user);
     }
 
 
-    public FuncionarioEntity inativarCliente(int id) {
+    public UserEntity inativarUser(int id) {
         Boolean ativo = false;
-        Optional<FuncionarioEntity> cliente = funcionarioRepository.findById(id);
-        Optional<EnderecoEntity> endereco = enderecoRepository.findByFkCliente(id);
+        Optional<UserEntity> user = userRepository.findById(id);
+        Optional<EnderecoEntity> endereco = enderecoRepository.findByFkUser(id);
 
-        if (cliente.isPresent()) {
+        if (user.isPresent()) {
             endereco.ifPresent(enderecoEntity -> enderecoEntity.setIsActive(ativo));
-            cliente.get().setIsActive(ativo);
-            funcionarioRepository.save(cliente.get());
+            user.get().setIsActive(ativo);
+            userRepository.save(user.get());
             endereco.get().setIsActive(ativo);
-            return cliente.get();
+            return user.get();
         }
-        throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente não encontrado ou Endereço");
+        throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Usuário não encontrado ou Endereço");
 
     }
 

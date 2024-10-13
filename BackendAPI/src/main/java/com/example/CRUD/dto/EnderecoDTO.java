@@ -21,5 +21,5 @@ public class EnderecoDTO {
     private String gia;
     private String ddd;
     private String siafi;
-    private Integer fkCliente;
+    private Integer fkUser;
 }

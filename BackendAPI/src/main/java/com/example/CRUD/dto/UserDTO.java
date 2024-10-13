@@ -1,14 +1,15 @@
 package com.example.CRUD.dto;
 
-import com.example.CRUD.security.controller.ClienteControllerSecurity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteDTO {
+public class UserDTO {
 
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +18,9 @@ public class ClienteDTO {
     private String cpfCnpj;
     private String endereco;
     private String telefone;
+    private String senha;
     private String email;
-    private String dataCadastro;
+    private LocalDate dataCadastro;
     private String funcao;
 
 }

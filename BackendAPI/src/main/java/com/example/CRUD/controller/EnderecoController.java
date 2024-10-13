@@ -26,10 +26,10 @@ public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
-    @PostMapping("/{fkCliente}")
+    @PostMapping("/{fkUser}")
     public ResponseEntity<EnderecoEntity> cadastrarEndereco(
             @RequestParam String cep,
-            @PathVariable Integer fkCliente
+            @PathVariable Integer fkUser
     ) {
         Cep viaCep = ViaCepClient.findCep(cep);
 
@@ -44,11 +44,11 @@ public class EnderecoController {
         enderecoEntity.setLogradouro(viaCep.getLogradouro());
         enderecoEntity.setSiafi(viaCep.getSiafi());
         enderecoEntity.setUf(viaCep.getUf());
-        enderecoEntity.setFkCliente(fkCliente);
+        enderecoEntity.setFkUser(fkUser);
         enderecoEntity.setIsActive(true);
         enderecoEntity.setId(1);
 
-        return ResponseEntity.ok().body(enderecoService.save(enderecoEntity, fkCliente));
+        return ResponseEntity.ok().body(enderecoService.save(enderecoEntity, fkUser));
     }
 
     @GetMapping()
@@ -66,9 +66,9 @@ public class EnderecoController {
     }
     
 
-    @GetMapping("{fkCliente}")
-    public ResponseEntity<Void> deletaEndereco(@PathVariable Integer fkCliente) {
-        enderecoService.listEnderecoPorCliente(fkCliente);
+    @GetMapping("{fkUser}")
+    public ResponseEntity<Void> deletaEndereco(@PathVariable Integer fkUser) {
+        enderecoService.listEnderecoPorUser(fkUser);
         return ResponseEntity.status(200).build();
     }
 

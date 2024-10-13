@@ -1,24 +1,25 @@
 package com.example.CRUD.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.http.ResponseEntity;
+        import lombok.*;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
 // CRIANDO UMA TABELA
 @Entity
-@Table(name = "Clientes")
+@Table(name = "Usuario")
 @Getter
 @Setter
-public class FuncionarioEntity implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer Id;
 
     @Column(name = "Nome")
@@ -43,7 +44,7 @@ public class FuncionarioEntity implements UserDetails {
     private Boolean isActive;
 
     @Column(name = "Data_Cadastro")
-    private String dataCadastro;
+    private LocalDate dataCadastro;
 
     @Column(name = "Funcao")
     private String role;
@@ -83,60 +84,23 @@ public class FuncionarioEntity implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "Id=" + Id +
+                ", nome='" + nome + '\'' +
+                ", cpfCnpj='" + cpfCnpj + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", isActive=" + isActive +
+                ", dataCadastro=" + dataCadastro +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }
 
 
 
-//package com.example.projeto_03_http_persistencia;
-//
-//import jakarta.persistence.*;
-//
-//@Entity
-//public class Musica {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
-//    private String nome;
-//    private String artista;
-//
-//    @Column(name = "anoLancamento")
-//    private Integer anoLancamento;
-//
-//    public Musica() {
-//    }
-//
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
-//
-//    public String getNome() {
-//        return nome;
-//    }
-//
-//    public void setNome(String nome) {
-//        this.nome = nome;
-//    }
-//
-//    public String getArtista() {
-//        return artista;
-//    }
-//
-//    public void setArtista(String artista) {
-//        this.artista = artista;
-//    }
-//
-//    public Integer getAnoLancamento() {
-//        return anoLancamento;
-//    }
-//
-//    public void setAnoLancamento(Integer anoLancamento) {
-//        this.anoLancamento = anoLancamento;
-//    }
-//
-//
-//}

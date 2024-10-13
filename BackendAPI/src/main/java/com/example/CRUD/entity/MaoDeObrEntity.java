@@ -25,7 +25,7 @@ public class MaoDeObrEntity implements Pedido {
     private LocalDate horaEstimada;
     private LocalDate dataInicio;
     private String status;
-    private Integer fkCliente;
+    private Integer fkUser;
 
 //    private Integer id;
 //    private String nome;

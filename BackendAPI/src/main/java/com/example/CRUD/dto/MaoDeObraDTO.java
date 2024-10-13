@@ -20,5 +20,5 @@ public class MaoDeObraDTO {
     private String responsavel;
     private LocalDate horaEstimada;
     private LocalDate dataInicio;
-    private Integer fkCliente;
+    private Integer fkUser;
 }

@@ -21,7 +21,7 @@ public class EnderecoService {
         if (enderecoRepository.existsById(novoEndereco.getId()) ) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Endereço já criado");
         }
-        novoEndereco.setFkCliente(fkCliente);
+        novoEndereco.setFkUser(fkCliente);
         novoEndereco.setId(null);
         return enderecoRepository.save(novoEndereco);
     }
@@ -44,8 +44,8 @@ public class EnderecoService {
         return entityOptional.get();
     }
 
-    public List<EnderecoEntity> listEnderecoPorCliente(int id) {
-        List<EnderecoEntity> listAddress = enderecoRepository.findAllByFkCliente(id);
+    public List<EnderecoEntity> listEnderecoPorUser(int id) {
+        List<EnderecoEntity> listAddress = enderecoRepository.findAllByFkUser(id);
         if (listAddress.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Esse cliente não tem endereço cadastrado");
         }

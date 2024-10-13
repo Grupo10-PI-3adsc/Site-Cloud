@@ -31,11 +31,11 @@ public class MaoDeObraService {
     }
 
     public List<MaoDeObrEntity> pesquisarPorCliente(int id) {
-        List<MaoDeObrEntity> listarPorCliente = maoDeObraRepository.findAllByFkCliente(id);
-        if (listarPorCliente.isEmpty()) {
+        List<MaoDeObrEntity> listarPorUser = maoDeObraRepository.findAllByFkUser(id);
+        if (listarPorUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Esse cliente não serviços");
         }
-        return listarPorCliente;
+        return listarPorUser;
     }
 
     public MaoDeObrEntity servicoPorId(int id) {
@@ -51,7 +51,7 @@ public class MaoDeObraService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conflito");
         }
         maoDeObrEntity.setId(null);
-        maoDeObrEntity.setFkCliente(id);
+        maoDeObrEntity.setFkUser(id);
         return maoDeObraRepository.save(maoDeObrEntity);
     }
 
@@ -62,10 +62,10 @@ public class MaoDeObraService {
         return maoDeObraRepository.save(maoDeObrEntity);
     }
 
-    public MaoDeObrEntity cancelarServico(int fkCliente) {
+    public MaoDeObrEntity cancelarServico(int fkUser) {
         String cancelarServico = "Cancelado";
 
-        Optional<MaoDeObrEntity> servico = maoDeObraRepository.findByFkCliente(fkCliente);
+        Optional<MaoDeObrEntity> servico = maoDeObraRepository.findByFkUser(fkUser);
         if(servico.isPresent()) {
             servico.get().setStatus(cancelarServico);
             maoDeObraRepository.save(servico.get());

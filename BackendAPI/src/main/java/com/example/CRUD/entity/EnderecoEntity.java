@@ -31,10 +31,10 @@ public class EnderecoEntity {
     private String siafi;
     private Boolean isActive;
 //    @Column(insertable=false, updatable=false)
-    private Integer fkCliente;
+    private Integer fkUser;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "cliente", referencedColumnName = "idCliente")
-    private ClienteEntity cliente; // Associação com ClienteEntity
+    @JoinColumn(name = "cliente", referencedColumnName = "Id")
+    private UserEntity user; // Associação com ClienteEntity
 
 }

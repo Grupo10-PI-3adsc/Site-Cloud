@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Integer> {
-    List<EnderecoEntity> findAllByFkCliente(Integer fkCliente);
+    List<EnderecoEntity> findAllByFkUser(Integer fkUser);
 //    Optional<EnderecoEntity> findByFkClienteAndCep(Integer fkCliente, String cep);
 ////
 //    List<EnderecoEntity> findByCliente();
@@ -18,7 +18,7 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Intege
 
 //    List<EnderecoEntity> deleteByCepAndFkCliente(String cep, int id);
 
-    Optional<EnderecoEntity> findByFkCliente(int id);
+    Optional<EnderecoEntity> findByFkUser(Integer id);
 
 //    Optional<EnderecoEntity> findAllById(List<EnderecoEntity> listAddress);
 //

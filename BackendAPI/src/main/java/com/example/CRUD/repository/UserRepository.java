@@ -1,17 +1,19 @@
 package com.example.CRUD.repository;
 
-import com.example.CRUD.entity.FuncionarioEntity;
+import com.example.CRUD.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     // Buscar por nome
-    List<FuncionarioEntity> findByNomeContainingIgnoreCase(String nome);
+    List<UserEntity> findByNomeContainingIgnoreCase(String nome);
 
-    Optional<FuncionarioEntity> findByEmail(String nome);
+    Optional<UserEntity> findByEmail(String nome);
+
 }
