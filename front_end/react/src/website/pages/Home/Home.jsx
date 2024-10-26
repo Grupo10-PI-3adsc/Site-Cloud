@@ -2,6 +2,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Info from "../Info/Info";
 import Services from "../Services/Services";
+import AboutUs from "../About/About";
+import Contact from "../Contact/Contact";
 
 function Home() {
   return (
@@ -21,6 +23,8 @@ function Home() {
 
       <Info />
       <Services />
+      <AboutUs />
+      <Contact />
       <Footer />
     </>
   );

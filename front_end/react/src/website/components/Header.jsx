@@ -1,13 +1,13 @@
 function Header() {
 
-    return(
+    return (
         <header className="header">
-            <h1>Sitezin</h1>
+            <img src="../src/assets/lotus-icon.png" alt="" />
             <nav className="nav-bar">
-                <a href="#">Principal</a>   
-                <a href="#">Sobre</a>   
-                <a href="#">Serviços</a>    
-                <a href="#">Contato</a> 
+                <a href="#">Principal</a>
+                <a href="#">Sobre</a>
+                <a href="#">Serviços</a>
+                <a href="#">Contato</a>
 
                 <hr />
 

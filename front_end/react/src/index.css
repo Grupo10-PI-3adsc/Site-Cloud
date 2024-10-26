@@ -22,6 +22,10 @@
   padding: 10px 20px 10px 20px;
 }
 
+.header img {
+  width: 3%;
+}
+
 .nav-bar {
   display: flex;
   flex-direction: row;
@@ -112,15 +116,14 @@
 .info {
   background-color: #fff9fb;
 
-  padding: 0 50px 0 50px;
-  margin: 100px 0;
-  height: 55vh;
+  padding: 7rem 50px 7rem 50px;
+  height: 70vh;
 
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 7rem;
+  gap: 5rem;
 }
 
 .info-title {
@@ -202,11 +205,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 4rem;
 
-  height: 40vh;
+  height: 180vh;
   width: 100%;
+  padding-top: 4rem;
+
+  position: relative;
 }
 
 .services-text {
@@ -239,6 +245,7 @@
 
   background: rgba(29, 29, 32, 0);
   transition: 0.3s;
+  cursor: pointer;
 
   border: #1d1d20 5px solid;
   border-radius: 10px;
@@ -250,6 +257,299 @@
 
 .services-buttons button:hover {
   background: rgba(29, 29, 32, 1);
+}
+
+.service {
+  width: 100%;
+  height: 79%;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.service.alinhamento {
+  background-image: url(./assets/alinhamento.jpg);
+  background-size: cover;
+}
+
+.service.balanceamento {
+  background-image: url(./assets/balanceamento.png);
+  background-size: cover;
+}
+
+.service.bateria {
+  background-image: url(./assets/bateria.jpg);
+  background-size: cover;
+}
+
+.service.borracharia {
+  background-image: url(./assets/borracharia.jpg);
+  background-size: cover;
+}
+
+.service.embreagem {
+  background-image: url(./assets/embreagem.jpg);
+  background-size: cover;
+}
+
+.service.freios {
+  background-image: url(./assets/freios.png);
+  background-size: cover;
+}
+
+.service.injecao {
+  background-image: url(./assets/injecao.png);
+  background-size: cover;
+}
+
+.service.mecanica {
+  background-image: url(./assets/mecanica.png);
+  background-size: cover;
+}
+
+.service.suspensao {
+  background-image: url(./assets/suspensao.jpg);
+  background-size: cover;
+}
+
+.service.venda {
+  background-image: url(./assets/vendas.jpg);
+  background-size: cover;
+}
+
+.service-container {
+  height: 100%;
+  width: 100%;
+
+  background: linear-gradient(90deg, #30323D 53.35%, rgba(128, 134, 163, 0) 100%);
+}
+
+.service-info {
+  height: 100%;
+  width: 50%;
+  gap: 4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: #FFF9FB;
+}
+
+.service-info h1 {
+  font-size: 50px;
+  font-weight: 500;
+  width: 60%;
+}
+
+.service-info p {
+  font-size: 25px;
+  font-weight: 400;
+  width: 60%;
+  text-align: justify;
+}
+
+/* About Us */
+
+.about-us {
+  background-color: #4D5061;
+  width: 100%;
+  height: 100vh;
+
+  color: #FFF9FB;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-us h1 {
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.about-us p {
+  margin-bottom: 5rem;
+  width: 50rem;
+  text-align: center;
+  font-size: 20px;
+}
+
+.about-us-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15rem;
+}
+
+.about-us-container img {
+  width: 30%;
+  height: 100%;
+}
+
+.about-us-info {
+  width: 40%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.about-us-info p {
+  margin: 0;
+  width: auto;
+  text-align: left;
+  font-size: 20px;
+}
+
+.about-us-info h1 {
+  font-size: 20px;
+}
+
+.about-us-topic {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+
+  width: 100%;
+}
+
+.about-us-topic span {
+  width: 5rem;
+  height: 4rem;
+
+  border-radius: 10px;
+  background-color: #30323D;
+}
+
+.topic-text {
+  width: 100%;
+}
+
+/* Contact */
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  height: 100vh;
+  width: 100%;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+
+  width: 100%;
+  height: 80%;
+}
+
+.contact-gps {
+  background-image: url(assets/gps.png);
+  background-size: contain;
+
+  width: 30%;
+  height: 80%;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 30%;
+  height: 80%;
+  padding: 0 20px;
+
+  background-color: #1d1d20;
+  color: #FFF9FB;
+}
+
+.contact-form input {
+  margin-bottom: 30px;
+
+  height: 25px;
+}
+
+.contact-form input.message {
+  height: 60px;
+}
+
+.contact-form button {
+  width: 10rem;
+  height: 3rem;
+  margin-top: 20px;
+
+  background-color: #e8c547;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Footer */
+
+footer {
+  background-color: #1d1d20;
+  color: #FFF9FB;
+
+  min-width: 10%;
+  max-width: 100%;
+  height: 50vh;
+
+  padding: 0 100px;
+}
+
+footer .footer-container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+footer .footer-socials {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+footer .footer-socials img {
+  width: 5%;
+  height: 5%;
+
+  margin-bottom: 100px;
+}
+
+footer .footer-navigation h1 {
+  margin-bottom: 50px;
+}
+
+footer .footer-navigation p {
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+footer .footer-navigation p:hover {
+  color: #e8c547;
 }
 
 /* Cadastro */
