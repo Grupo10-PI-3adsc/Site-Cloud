@@ -1,62 +1,139 @@
+import Login from '../Login/Login.jsx';
+import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Cadastrar() {
+    const navigate = useNavigate();
+    
+    const [nome, setNome] = useState("");
+    const [cpfCnpj, setCpfCnpj] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [email, setEmail] = useState("");
+
+    // Ajuste para sumir a label do input quando o campo estiver preenchido
+    const [showNomeLabel, setShowNomeLabel] = useState(true);
+    const [showCpfCnpjLabel, setShowCpfCnpjLabel] = useState(true);
+    const [showEnderecoLabel, setShowEnderecoLabel] = useState(true);
+    const [showTelefoneLabel, setShowTelefoneLabel] = useState(true);
+    const [showEmailLabel, setShowEmailLabel] = useState(true);
+
+    const getCurrentDate = () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0]; 
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const data = {
+            nome,
+            cpfCnpj,
+            endereco,
+            telefone,
+            email,
+            dataCadastro: getCurrentDate()
+        };
+
+        try {
+            const response = await fetch("http://localhost:8080/clientes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert("Cadastro realizado com sucesso!");
+                navigate("/login");
+            } else {
+                alert("Falha no cadastro");
+            }
+        } catch (error) {
+            console.error("Erro ao enviar dados:", error);
+            alert("Erro ao enviar dados");
+        }
+    };
+
     return (
-        <>
-            <div className="register">
-                <div className="register-container">
-                    <div className="register-contents">
-                        <div className="register-titles">
-                            <h1>Crie uma conta nova<a>!</a></h1>
-                            <p>Já possui conta? <a href="#">Faça Login</a> </p>
-                        </div>
-                        <div className="register-inputs">
-                            <div className="register-inputs-names">
-                                <div className="input-container">
-                                    <label htmlFor="inputField">Nome</label>
-                                    <input type="text" id="inputField" />
-                                </div>
-                                <div className="input-container">
-                                    <label htmlFor="inputField">Sobrenome</label>
-                                    <input type="text" id="inputField" />
-                                </div>
-                            </div>
-
-                            <div className="input-container">
-                                <label htmlFor="inputField" className="focus">CPF</label>
-                                <input type="text" id="inputField" />
-                            </div>
-                            <div className="input-container">
-                                <label htmlFor="inputField">E-mail</label>
-                                <input type="text" id="inputField" />
-                            </div>
-                            <div className="input-container">
-                                <label htmlFor="inputField">Senha</label>
-                                <input type="text" id="inputField" />
-                            </div>
-                        </div>
-                        <button className="btn-register">Prosseguir</button>
+        <div className="auth-page">
+            <div className="auth-container">
+                <div className="auth-contents">
+                    <div className="auth-titles">
+                        <h1>Crie uma conta nova!</h1>
+                        <p>Já possui conta? <a href="#" onClick={() => navigate("/login")}>Faça Login</a></p>
                     </div>
-
-                    <div className="login-contents">
-                        <div className="login-titles">
-                            <h1>Entre na sua conta<a>!</a></h1>
-                            <p>Não tem conta? <a href="#">Cadastre-se!</a> </p>
-                        </div>
-                        <div className="login-inputs">
+                    <form className="auth-inputs" onSubmit={handleSubmit}>
+                        <div className="auth-inputs-names">
                             <div className="input-container">
-                                <label htmlFor="inputField">Nome</label>
-                                <input type="text" id="inputField" />
+                                {showNomeLabel && <label htmlFor="nome">Nome</label>}
+                                <input 
+                                    type="text" 
+                                    id="nome" 
+                                    value={nome} 
+                                    onChange={(e) => setNome(e.target.value)} 
+                                    onFocus={() => setShowNomeLabel(false)} 
+                                    onBlur={() => setShowNomeLabel(!nome)} 
+                                    required 
+                                />
                             </div>
                             <div className="input-container">
-                                <label htmlFor="inputField">Sobrenome</label>
-                                <input type="text" id="inputField" />
+                                {showCpfCnpjLabel && <label htmlFor="cpfCnpj">CPF/CNPJ</label>}
+                                <input 
+                                    type="text" 
+                                    id="cpfCnpj" 
+                                    value={cpfCnpj} 
+                                    onChange={(e) => setCpfCnpj(e.target.value)} 
+                                    onFocus={() => setShowCpfCnpjLabel(false)} 
+                                    onBlur={() => setShowCpfCnpjLabel(!cpfCnpj)} 
+                                    required 
+                                />
                             </div>
                         </div>
-                        <button className="btn-login">Prosseguir</button>
-                    </div>
+                        <div className="input-container">
+                            {showEnderecoLabel && <label htmlFor="endereco">Endereço</label>}
+                            <input 
+                                type="text" 
+                                id="endereco" 
+                                value={endereco} 
+                                onChange={(e) => setEndereco(e.target.value)} 
+                                onFocus={() => setShowEnderecoLabel(false)} 
+                                onBlur={() => setShowEnderecoLabel(!endereco)} 
+                                required 
+                            />
+                        </div>
+                        <div className="input-container">
+                            {showTelefoneLabel && <label htmlFor="telefone">Telefone</label>}
+                            <input 
+                                type="text" 
+                                id="telefone" 
+                                value={telefone} 
+                                onChange={(e) => setTelefone(e.target.value)} 
+                                onFocus={() => setShowTelefoneLabel(false)} 
+                                onBlur={() => setShowTelefoneLabel(!telefone)} 
+                                required 
+                            />
+                        </div>
+                        <div className="input-container">
+                            {showEmailLabel && <label htmlFor="email">E-mail</label>}
+                            <input 
+                                type="email" 
+                                id="email" 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                onFocus={() => setShowEmailLabel(false)} 
+                                onBlur={() => setShowEmailLabel(!email)} 
+                                required 
+                            />
+                        </div>
+                        <button className="auth-btn" type="submit">Prosseguir</button>
+                    </form>
                 </div>
             </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default Cadastrar;
