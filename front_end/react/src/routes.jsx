@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./website/pages/Home/Home";
 import Cadastrar from "./website/pages/Cadastro/Cadastro";
 import Login from "./website/pages/Login/Login"; 
+import RecuperarSenha from "./website/pages/RecuperarSenha/RecuperarSenha.jsx";
 
 function Rotas() {
     return (
@@ -13,6 +14,7 @@ function Rotas() {
                     <Route path="/" element={<Home />} />
                     <Route path="/cadastro" element={<Cadastrar />} />
                     <Route path="/login" element={<Login />} /> 
+                    <Route path="/recuperar-senha" element={<RecuperarSenha />} />
                 </Routes>
             </BrowserRouter>
         </>

@@ -2,22 +2,28 @@ import Login from '../Login/Login.jsx';
 import { Link } from 'react-router-dom';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header";
+
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 function Cadastrar() {
     const navigate = useNavigate();
+
+   
     
     const [nome, setNome] = useState("");
     const [cpfCnpj, setCpfCnpj] = useState("");
-    const [endereco, setEndereco] = useState("");
     const [telefone, setTelefone] = useState("");
     const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    // role: "user", cliente será sempre um usuário comum
 
     // Ajuste para sumir a label do input quando o campo estiver preenchido
     const [showNomeLabel, setShowNomeLabel] = useState(true);
     const [showCpfCnpjLabel, setShowCpfCnpjLabel] = useState(true);
-    const [showEnderecoLabel, setShowEnderecoLabel] = useState(true);
     const [showTelefoneLabel, setShowTelefoneLabel] = useState(true);
     const [showEmailLabel, setShowEmailLabel] = useState(true);
+    const [showSenhaLabel, setShowSenhaLabel] = useState(true);
 
     const getCurrentDate = () => {
         const today = new Date();
@@ -30,14 +36,13 @@ function Cadastrar() {
         const data = {
             nome,
             cpfCnpj,
-            endereco,
             telefone,
             email,
-            dataCadastro: getCurrentDate()
+            senha
         };
 
         try {
-            const response = await fetch("http://localhost:8080/clientes", {
+            const response = await fetch(`${apiUrl}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -58,6 +63,8 @@ function Cadastrar() {
     };
 
     return (
+        <>
+        <Header/>
         <div className="auth-page">
             <div className="auth-container">
                 <div className="auth-contents">
@@ -93,18 +100,6 @@ function Cadastrar() {
                             </div>
                         </div>
                         <div className="input-container">
-                            {showEnderecoLabel && <label htmlFor="endereco">Endereço</label>}
-                            <input 
-                                type="text" 
-                                id="endereco" 
-                                value={endereco} 
-                                onChange={(e) => setEndereco(e.target.value)} 
-                                onFocus={() => setShowEnderecoLabel(false)} 
-                                onBlur={() => setShowEnderecoLabel(!endereco)} 
-                                required 
-                            />
-                        </div>
-                        <div className="input-container">
                             {showTelefoneLabel && <label htmlFor="telefone">Telefone</label>}
                             <input 
                                 type="text" 
@@ -128,11 +123,24 @@ function Cadastrar() {
                                 required 
                             />
                         </div>
+                        <div className="input-container">
+                                {showSenhaLabel && <label htmlFor="Senha">Senha</label>}
+                                <input 
+                                    type="text" 
+                                    id="senha" 
+                                    value={senha} 
+                                    onChange={(e) => setSenha(e.target.value)} 
+                                    onFocus={() => setShowSenhaLabel(false)} 
+                                    onBlur={() => setShowSenhaLabel(!senha)} 
+                                    required 
+                                />
+                            </div>
                         <button className="auth-btn" type="submit">Prosseguir</button>
                     </form>
                 </div>
             </div>
         </div>
+        </>
     );
 }
 
