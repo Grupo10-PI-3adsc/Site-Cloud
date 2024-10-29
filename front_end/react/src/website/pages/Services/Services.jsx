@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
 function Services() {
-  // Definir o estado inicial do serviço selecionado
+
   const [activeService, setActiveService] = useState('alinhamento');
 
-  // Manipulador para definir o serviço ativo
   const handleServiceClick = (service) => {
     setActiveService(service);
   };
@@ -22,7 +21,7 @@ function Services() {
 
         <div className="services-buttons">
           <button className={`btn-service ${activeService === 'alinhamento' ? 'active' : ''}`}
-            onClick={() => handleServiceClick('alinhamento')}>placeholder</button>
+            onClick={() => handleServiceClick('alinhamento')}> <img src='../src/assets/alinhamento.svg' /></button>
 
           <button className={`btn-service ${activeService === 'balanceamento' ? 'active' : ''}`}
             onClick={() => handleServiceClick('balanceamento')}>placeholder</button>
