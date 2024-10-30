@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Cadastrar from '../Cadastro/Cadastro.jsx';
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 
@@ -10,23 +9,21 @@ function Login() {
         navigate(path);
     };
 
-    // Ajuste para sumir a label do input quando o campo estiver preenchido
     const [showEmailLabel, setShowEmailLabel] = useState(true);
     const [showPasswordLabel, setShowPasswordLabel] = useState(true);
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-
+    const [password, setSenha] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const data = {
             email,
-            senha
+            password
         };
 
         try {
-            const response = await fetch(`${apiUrl}/auth/login`, {
+            const response = await fetch(`http://localhost:8080/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -45,7 +42,6 @@ function Login() {
         }
     }
 
-
     return (
         <>
         <Header/>
@@ -56,7 +52,7 @@ function Login() {
                         <h1>Entre na sua conta<a>!</a></h1>
                         <p>Não tem conta? <a href="#" onClick={() => handleRegisterClick("/cadastro")}>Cadastre-se!</a></p>
                     </div>
-                    <div className="auth-inputs">
+                    <form onSubmit={handleSubmit} className="auth-inputs">
                         <div className="input-container">
                             {showEmailLabel && <label htmlFor="email">E-mail</label>}
                             <input 
@@ -69,21 +65,21 @@ function Login() {
                             />
                         </div>
                         <div className="input-container">
-                            {showPasswordLabel && <label htmlFor="senha">Senha</label>}
+                            {showPasswordLabel && <label htmlFor="senha">Password</label>}
                             <input 
                                 type="password" 
                                 id="senha" 
-                                value={senha} 
+                                value={password} 
                                 onChange={(e) => setSenha(e.target.value)} 
                                 onFocus={() => setShowPasswordLabel(false)} 
-                                onBlur={() => setShowPasswordLabel(!senha)} 
+                                onBlur={() => setShowPasswordLabel(!password)} 
                             />
-                             <div className="auth-titles">
-                        <p>Esqueceu sua senha? <a href="#" onClick={() => handleRegisterClick("/recuperar-senha")}>Recuperar Senha</a></p>
-                    </div>
+                            <div className="auth-titles">
+                                <p>Esqueceu sua senha? <a href="#" onClick={() => handleRegisterClick("/recuperar-senha")}>Recuperar Senha</a></p>
+                            </div>
                         </div>
-                    </div>
-                    <button className="auth-btn" type='submit'>Prosseguir</button>
+                        <button className="auth-btn" type="submit">Prosseguir</button>
+                    </form>
                 </div>
             </div>
         </div>
