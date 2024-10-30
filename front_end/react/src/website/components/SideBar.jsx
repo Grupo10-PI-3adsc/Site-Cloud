@@ -1,5 +1,11 @@
 import React from 'react';
-import { FaHome, FaServicestack, FaInfoCircle, FaEnvelope } from 'react-icons/fa';
+import { IoBarChartOutline } from "react-icons/io5";
+import { IoMdPerson } from "react-icons/io";
+import { CiBoxes } from "react-icons/ci";
+import { LuCalendarClock } from "react-icons/lu";
+import { PiHandshakeDuotone } from "react-icons/pi";
+import { VscNotebook } from "react-icons/vsc";
+
 
 const SideBar = () => {
     return (
@@ -11,23 +17,33 @@ const SideBar = () => {
                 <div className="sidebar-container">
                     <ul>
                         <li>
-                            <a href="#home">
-                                <FaHome className="icon" /> <span className="text">Home</span>
+                            <a href="#">
+                                <IoBarChartOutline className="icon" /> <span className="text">Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#services">
-                                <FaServicestack className="icon" /> <span className="text">Services</span>
+                            <a href="#">
+                                <CiBoxes className="icon" /> <span className="text">Services</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#about">
-                                <FaInfoCircle className="icon" /> <span className="text">About</span>
+                            <a href="#">
+                                <LuCalendarClock className="icon" /> <span className="text">About</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#contact">
-                                <FaEnvelope className="icon" /> <span className="text">Contact</span>
+                            <a href="#">
+                                <IoMdPerson className="icon" /> <span className="text">Contact</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <PiHandshakeDuotone className="icon" /> <span className="text">Contact</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <VscNotebook className="icon" /> <span className="text">Contact</span>
                             </a>
                         </li>
                     </ul>
