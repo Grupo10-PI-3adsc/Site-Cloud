@@ -15,7 +15,7 @@ function Cadastrar() {
     const [cpfCnpj, setCpfCnpj] = useState("");
     const [telefone, setTelefone] = useState("");
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
+    const [password, setSenha] = useState("");
     // role: "user", cliente será sempre um usuário comum
 
     // Ajuste para sumir a label do input quando o campo estiver preenchido
@@ -35,14 +35,14 @@ function Cadastrar() {
 
         const data = {
             nome,
-            cpfCnpj,
-            telefone,
             email,
-            senha
+            password,
+            cpfCnpj,
+            telefone
         };
 
         try {
-            const response = await fetch(`${apiUrl}/auth/register`, {
+            const response = await fetch(`http://localhost:8080/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -124,14 +124,14 @@ function Cadastrar() {
                             />
                         </div>
                         <div className="input-container">
-                                {showSenhaLabel && <label htmlFor="Senha">Senha</label>}
+                                {showSenhaLabel && <label htmlFor="Senha">password</label>}
                                 <input 
                                     type="text" 
                                     id="senha" 
-                                    value={senha} 
+                                    value={password} 
                                     onChange={(e) => setSenha(e.target.value)} 
                                     onFocus={() => setShowSenhaLabel(false)} 
-                                    onBlur={() => setShowSenhaLabel(!senha)} 
+                                    onBlur={() => setShowSenhaLabel(!password)} 
                                     required 
                                 />
                             </div>
