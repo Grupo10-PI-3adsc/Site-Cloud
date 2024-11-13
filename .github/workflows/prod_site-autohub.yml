@@ -48,8 +48,11 @@ jobs:
         with:
           name: node-app
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip -d .
+      - name: Unzip artifact and prepare for deployment
+        run: |
+          unzip release.zip
+          mv dist/* .  # Move conteúdo da pasta `dist` para o diretório atual
+          rm -rf dist  # Remove a pasta `dist` vazia após mover os arquivos
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -64,5 +67,5 @@ jobs:
         with:
           app-name: 'site-autohub'
           slot-name: 'Production'
-          package: './dist'  # Define o caminho da pasta onde o build está armazenado
+          package: '.'  # Use o diretório atual, que agora contém apenas os arquivos necessários
 
