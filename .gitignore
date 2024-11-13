@@ -1,81 +1,25 @@
-# Node.js
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-package-lock.json
-yarn.lock
-
-# React
-build/
-.cache/
-public/static/
-*.env.local
-*.env.development.local
-*.env.test.local
-*.env.production.local
-
-# Java & Spring
-target/
-*.class
-*.jar
-*.war
-*.ear
-*.log
-*.log.*
-*.classpath
-*.project
-*.settings/
-*.metadata/
-.spring-boot-devtools/
-
-
-# IntelliJ IDEA
-.idea/
-*.iml
-*.iws
-out/
-*.class
-*.jar
-*.war
-*.ear
-
-# VS Code
-.vscode/
-.history/
-
-# Tailwind
-*.css.map
-*.js.map
-
-
-# MySQL
-*.sql
-*.sql.gz
-*.dump
-
 # Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Temporary files
-*.tmp
-*.swp
-*.swo
-*.swn
-*.bak
-*.orig
+node_modules
+dist
+dist-ssr
+*.local
 
-
-# Yarn
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/sdks
-!.yarn/versions
-!.yarn/metadata
-!.yarn/constraints
-
-# Docker
-Dockerfile
-docker-compose.yml
-.docker/
+# Editor directories and files
+.env
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
