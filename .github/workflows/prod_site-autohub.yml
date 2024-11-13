@@ -23,9 +23,9 @@ jobs:
           npm install
           npm run build --if-present
 
-      # Zip only the 'dist' folder for deployment
+      # Zip the entire project for deployment, including dist, config, and source files
       - name: Zip artifact for deployment
-        run: zip -r release.zip ./dist
+        run: zip -r release.zip .  # This will include the entire project
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -51,8 +51,8 @@ jobs:
       - name: Unzip artifact and prepare for deployment
         run: |
           unzip release.zip
-          mv dist/* .  # Move conteúdo da pasta `dist` para o diretório atual
-          rm -rf dist  # Remove a pasta `dist` vazia após mover os arquivos
+          mv dist/* .  # Move content of dist to root folder (this is where the site files go)
+          rm -rf dist  # Remove the now empty dist folder
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -67,5 +67,5 @@ jobs:
         with:
           app-name: 'site-autohub'
           slot-name: 'Production'
-          package: '.'  # Use o diretório atual, que agora contém apenas os arquivos necessários
+          package: '.'  # Deploy everything from the current directory
 
