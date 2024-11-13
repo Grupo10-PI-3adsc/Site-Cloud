@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Header from "../../components/Header";
 
-const apiUrl = 'http://localhost:8080';
+const apiUrl = 'https://apiautohub.azurewebsites.net';
 
 function Cadastrar() {
     const navigate = useNavigate();
